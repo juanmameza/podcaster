@@ -1,8 +1,10 @@
 export type PodcastEntry = {
-  [key: string]: any
+  [key: string]: any;
 };
 
 export type PodcastResponse = {
-  author?: any;
-  entry: PodcastEntry[];
+  feed: {
+    author?: any;
+    entry: PodcastEntry[];
+  };
 };

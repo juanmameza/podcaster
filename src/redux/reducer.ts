@@ -1,14 +1,12 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAction, createSlice } from "@reduxjs/toolkit";
 import { PodcastEntry } from "../types";
 
-const initialState = [
-  {
-    podcastList: [],
-    selectedPodcast: {},
-    selectedEpisode: {},
-    isLoading: false,
-  },
-];
+const initialState = {
+  podcastList: [],
+  selectedPodcast: {},
+  selectedEpisode: {},
+  isLoading: false,
+};
 
 const podcasterSlice = createSlice({
   name: "podcasts",
@@ -17,7 +15,10 @@ const podcasterSlice = createSlice({
     loadPodcastList: (state) => {
       return { ...state, isLoading: true };
     },
-    loadPodcastListSuccess: (state, action: PayloadAction<PodcastEntry[]>) => {
+    loadPodcastListSuccess: (
+      state,
+      action
+    ) => {
       return { ...state, podcastList: action.payload, isLoading: false };
     },
     loadPodcastListError: (state) => {
@@ -31,5 +32,13 @@ const podcasterSlice = createSlice({
     },
   },
 });
+
+export const {
+  loadPodcastList,
+  loadPodcastListSuccess,
+  loadPodcastListError,
+  selectPodcast,
+  selectEpisode,
+} = podcasterSlice.actions;
 
 export default podcasterSlice.reducer;
