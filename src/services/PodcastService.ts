@@ -50,8 +50,6 @@ class PodcastService {
     const episodeListResponse = await fetch(URL);
     const episodeList = await episodeListResponse.json();
 
-    console.log(JSON.parse(episodeList.contents));
-
     return JSON.parse(episodeList.contents);
   };
 }
