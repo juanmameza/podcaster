@@ -11,17 +11,22 @@ import {
 } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import store from "./redux/store";
+import { Views } from "./types";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="podcast/:podcastId" element={<App />}>
-        <Route path="episode/:episodeId" element={<App />} />
-      </Route>
-    </Route>
-  )
-);
-
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App view={Views.Home}></App>,
+  },
+  {
+    path: "/podcast/:id",
+    element: <App view={Views.Podcast}></App>,
+  },
+  {
+    path: "/podcast/:podcastid/episode/:episodeid",
+    element: <App view={Views.Episode}></App>,
+  },
+]);
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
