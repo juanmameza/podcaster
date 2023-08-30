@@ -1,0 +1,11 @@
+.podcastCard {
+  display: block;
+  padding: 20px;
+  -webkit-box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
+  -moz-box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
+  box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
+}
+
+.podcastCard img {
+    border-radius: 50%;
+}
