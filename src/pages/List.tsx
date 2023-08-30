@@ -18,7 +18,7 @@ const ListPage = () => {
     <>
       {podcastList &&
         podcastList.map((podcast: PodcastEntry) => (
-          <div id={podcast?.id?.attributes?.["im:id"]}>
+          <div key={podcast?.id?.attributes?.["im:id"]}>
             {podcast?.title?.label}
           </div>
         ))}

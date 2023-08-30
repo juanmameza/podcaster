@@ -8,3 +8,9 @@ export type PodcastResponse = {
     entry: PodcastEntry[];
   };
 };
+
+export enum Views {
+  Home = 'home',
+  Podcast = 'podcast',
+  Episode = 'episode'
+}

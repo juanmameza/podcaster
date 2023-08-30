@@ -12,4 +12,4 @@ const Header: React.FC<Props> = ({ onClickHome }) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);
