@@ -10,6 +10,10 @@ const selectEpisodeList = createSelector([podcastsSelector], (podcasts) => {
   return podcasts.episodeList.results;
 });
 
+const selectLoading = createSelector([podcastsSelector], (podcasts)=> {
+  return podcasts.isLoading;
+});
+
 const selectPodcastDetail = (id: string) =>
   createSelector([selectPodcastList], (podcastList) =>
     podcastList.find(
@@ -18,4 +22,4 @@ const selectPodcastDetail = (id: string) =>
   );
 
 
-export { selectPodcastList, selectPodcastDetail, selectEpisodeList };
+export { selectPodcastList, selectPodcastDetail, selectEpisodeList, selectLoading };

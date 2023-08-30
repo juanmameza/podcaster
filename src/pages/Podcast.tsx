@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { selectEpisodeList, selectPodcastDetail } from "../redux/selectors";
+import {
+  selectEpisodeList,
+  selectLoading,
+  selectPodcastDetail,
+} from "../redux/selectors";
 import "./Podcast.css";
-import { loadEpisodeList } from "../redux/reducer";
+import { loadEpisodeList, loadPodcastList } from "../redux/reducer";
 
 const PodcastPage = () => {
   const { id } = useParams();
@@ -15,13 +19,13 @@ const PodcastPage = () => {
 
   const podcastDetail = useSelector(selectPodcastDetail(id ?? ""));
   const episodes = useSelector(selectEpisodeList);
+  const isLoading = useSelector(selectLoading);
 
   const millisToMinutesAndSeconds = (millis: number) => {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (Number(seconds) < 10 ? '0' : '') + seconds;
-  }
-  
+    return minutes + ":" + (Number(seconds) < 10 ? "0" : "") + seconds;
+  };
 
   return (
     <div className="podcastViewContainer">
@@ -35,19 +39,21 @@ const PodcastPage = () => {
         )}
       </section>
       <section className="episodeListContainer">
-        <table>
-          <tr>
-            <th>Track name</th>
-            <th>Duration</th>
-          </tr>
-          {episodes &&
-            episodes.map((episode: any) => (
-              <tr>
-                <td>{episode.trackName}</td>
-                <td>{millisToMinutesAndSeconds(episode.trackTimeMillis)}</td>
-              </tr>
-            ))}
-        </table>
+        {!isLoading && (
+          <table>
+            <tr>
+              <th>Track name</th>
+              <th>Duration</th>
+            </tr>
+            {episodes &&
+              episodes.map((episode: any) => (
+                <tr>
+                  <td>{episode.trackName}</td>
+                  <td>{millisToMinutesAndSeconds(episode.trackTimeMillis)}</td>
+                </tr>
+              ))}
+          </table>
+        )}
       </section>
     </div>
   );

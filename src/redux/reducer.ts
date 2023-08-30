@@ -29,7 +29,7 @@ const podcasterSlice = createSlice({
       return {...state, isLoading: true, selectedPodcast: action.payload}
     },
     loadEpisodeListSuccess: (state, {payload})=>{
-      return {...state, episodeList: payload, isLoading: true}
+      return {...state, episodeList: payload, isLoading: false}
     },
   },
 });

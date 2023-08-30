@@ -13,7 +13,8 @@ type Props = {
 }
 
 const App: React.FC<Props> = ({view}) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
 
   return (
     <div className="App">
