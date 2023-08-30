@@ -5,6 +5,7 @@ import {
   selectEpisodeList,
   selectLoading,
   selectPodcastDetail,
+  selectPodcastListLoaded,
 } from "../redux/selectors";
 import "./Podcast.css";
 import { loadEpisodeList, loadPodcastList } from "../redux/reducer";
@@ -12,10 +13,14 @@ import { loadEpisodeList, loadPodcastList } from "../redux/reducer";
 const PodcastPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const podcastListLoaded = useSelector(selectPodcastListLoaded);
 
   useEffect(() => {
+    if (!podcastListLoaded) {
+      dispatch(loadPodcastList());
+    }
     if (id) dispatch(loadEpisodeList(id));
-  }, [id]);
+  }, [id, podcastListLoaded]);
 
   const podcastDetail = useSelector(selectPodcastDetail(id ?? ""));
   const episodes = useSelector(selectEpisodeList);
