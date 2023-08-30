@@ -3,7 +3,8 @@ import { PodcastEntry } from "../types";
 
 const initialState = {
   podcastList: [],
-  selectedPodcast: {},
+  episodeList: [],
+  selectedPodcast: '', 
   selectedEpisode: {},
   isLoading: false,
 };
@@ -24,11 +25,11 @@ const podcasterSlice = createSlice({
     loadPodcastListError: (state) => {
       return { ...state, podcastList: [], isLoading: false };
     },
-    selectPodcast: (state, action) => {
-      return { ...state, selectedPodcast: action.payload };
+    loadEpisodeList: (state, action: {type: string, payload: string})=>{
+      return {...state, isLoading: true, selectedPodcast: action.payload}
     },
-    selectEpisode: (state, action) => {
-      return { ...state, selectedEpisode: action.payload };
+    loadEpisodeListSuccess: (state, {payload})=>{
+      return {...state, episodeList: payload, isLoading: true}
     },
   },
 });
@@ -37,8 +38,8 @@ export const {
   loadPodcastList,
   loadPodcastListSuccess,
   loadPodcastListError,
-  selectPodcast,
-  selectEpisode,
+  loadEpisodeList,
+  loadEpisodeListSuccess
 } = podcasterSlice.actions;
 
 export default podcasterSlice.reducer;

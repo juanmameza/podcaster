@@ -40,6 +40,20 @@ class PodcastService {
       return await this.fetchPodcastListFromServer();
     }
   };
+
+  public fetchEpisodeList = async (id: string) => {
+    const episodeListURL = CONSTANTS.EpisodeURL.replace("[id]", id);
+    const URL = `${CONSTANTS.AllOriginsURL}${encodeURIComponent(
+      episodeListURL
+    )}`;
+
+    const episodeListResponse = await fetch(URL);
+    const episodeList = await episodeListResponse.json();
+
+    console.log(JSON.parse(episodeList.contents));
+
+    return JSON.parse(episodeList.contents);
+  };
 }
 
 export default PodcastService;

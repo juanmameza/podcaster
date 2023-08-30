@@ -5,6 +5,7 @@ import { PodcastEntry } from "../types";
 import PodcastCard from "../components/Podcast/PodcastCard";
 import './List.css'
 import { useNavigate } from "react-router-dom";
+import { selectPodcastList } from "../redux/selectors";
 
 const ListPage = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,7 @@ const ListPage = () => {
     dispatch(loadPodcastList());
   }, []);
 
-  const podcastList = useSelector(({ podcasts }) => {
-    return podcasts.podcastList;
-  });
+  const podcastList = useSelector(selectPodcastList);
 
   const handleCardClick = (podcast: PodcastEntry) => {
     navigate(`/podcast/${podcast.id?.attributes?.['im:id']}`);
