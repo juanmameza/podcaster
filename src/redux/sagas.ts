@@ -1,18 +1,17 @@
 import { all, call, put, takeEvery } from "redux-saga/effects";
-import CONSTANTS from "../config/constants";
-import { PodcastResponse } from "../types";
 import { loadPodcastList, loadPodcastListSuccess } from "./reducer";
+import PodcastService from "../services/PodcastService";
 
-function* watchFetchPodcasts() {
+function* fetchPodcasts() {
   yield takeEvery(loadPodcastList.type, function* fetchPodcasts() {
-    const response: Response = yield call(fetch, CONSTANTS.PodcastListURL);
-    const podcastsResponse: PodcastResponse = yield response.json();
-    yield put({ type: loadPodcastListSuccess.type, payload: podcastsResponse.feed.entry});
+    const podcastService = new PodcastService();
+    const response: Response = yield call(podcastService.fetchPodcastList);
+    yield put({ type: loadPodcastListSuccess.type, payload: response});
   });
 }
 
 export default function* rootSaga() {
   yield all([
-    watchFetchPodcasts(),
+    fetchPodcasts(),
   ])
 }
