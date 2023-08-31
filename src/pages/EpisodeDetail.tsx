@@ -1,8 +1,8 @@
 import React from 'react';
 
-const EpisodePage = ()=>{
+const EpisodeDetail = ()=>{
     return <h2>Episode Page</h2>
 }
 
 
-export default EpisodePage;
+export default EpisodeDetail;

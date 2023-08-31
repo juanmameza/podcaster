@@ -1,18 +1,25 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
-  selectEpisodeList,
-  selectLoading,
   selectPodcastDetail,
   selectPodcastListLoaded,
 } from "../redux/selectors";
 import "./Podcast.css";
 import { loadEpisodeList, loadPodcastList } from "../redux/reducer";
+import EpisodeList from "./EpisodeList";
+import { PodcastViews } from "../types";
+import EpisodeDetail from "./EpisodeDetail";
 
-const PodcastPage = () => {
+type Props = {
+  podcastView: PodcastViews;
+};
+
+const PodcastPage: React.FC<Props> = ({ podcastView }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const podcastListLoaded = useSelector(selectPodcastListLoaded);
 
   useEffect(() => {
@@ -23,13 +30,9 @@ const PodcastPage = () => {
   }, [id, podcastListLoaded]);
 
   const podcastDetail = useSelector(selectPodcastDetail(id ?? ""));
-  const episodes = useSelector(selectEpisodeList);
-  const isLoading = useSelector(selectLoading);
 
-  const millisToMinutesAndSeconds = (millis: number) => {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (Number(seconds) < 10 ? "0" : "") + seconds;
+  const handleEpisodeClick = (episode: any) => {
+    navigate("/podcast/" + id + "/episode/" + episode.trackId);
   };
 
   return (
@@ -43,23 +46,12 @@ const PodcastPage = () => {
           </article>
         )}
       </section>
-      <section className="episodeListContainer">
-        {!isLoading && (
-          <table>
-            <tr>
-              <th>Track name</th>
-              <th>Duration</th>
-            </tr>
-            {episodes &&
-              episodes.map((episode: any) => (
-                <tr>
-                  <td>{episode.trackName}</td>
-                  <td>{millisToMinutesAndSeconds(episode.trackTimeMillis)}</td>
-                </tr>
-              ))}
-          </table>
-        )}
-      </section>
+      {podcastView === PodcastViews.EpisodeList && (
+        <EpisodeList
+          onEpisodeClick={(episode) => handleEpisodeClick(episode)}
+        />
+      )}
+      {podcastView === PodcastViews.EpisodeDetail && <EpisodeDetail />}
     </div>
   );
 };

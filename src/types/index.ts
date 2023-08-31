@@ -14,3 +14,8 @@ export enum Views {
   Podcast = 'podcast',
   Episode = 'episode'
 }
+
+export enum PodcastViews {
+  EpisodeList = 'episode-list',
+  EpisodeDetail = 'episode-detail'
+}
