@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectEpisodeList, selectLoading } from "../redux/selectors";
+import { Episode } from "../types";
 
 type Props = {
   onEpisodeClick: (episode: any) => void;
@@ -19,17 +20,25 @@ const EpisodeList: React.FC<Props> = ({ onEpisodeClick }) => {
     <section className="episodeListContainer">
       {!isLoading && (
         <table>
-          <tr>
-            <th>Track name</th>
-            <th>Duration</th>
-          </tr>
-          {episodes &&
-            episodes.map((episode: any) => (
-              <tr tabIndex={0} onClick={() => onEpisodeClick(episode)} key={episode.id}>
-                <td>{episode.trackName}</td>
-                <td>{millisToMinutesAndSeconds(episode.trackTimeMillis)}</td>
-              </tr>
-            ))}
+          <thead>
+            <tr>
+              <th>Track name</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            {episodes &&
+              episodes.map((episode: Episode) => (
+                <tr
+                  tabIndex={0}
+                  onClick={() => onEpisodeClick(episode)}
+                  key={episode.trackId}
+                >
+                  <td>{episode.trackName}</td>
+                  <td>{millisToMinutesAndSeconds(episode.trackTimeMillis)}</td>
+                </tr>
+              ))}
+          </tbody>
         </table>
       )}
     </section>
