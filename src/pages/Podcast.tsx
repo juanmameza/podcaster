@@ -10,13 +10,14 @@ import { loadEpisodeList, loadPodcastList } from "../redux/reducer";
 import EpisodeList from "./EpisodeList";
 import { PodcastViews } from "../types";
 import EpisodeDetail from "./EpisodeDetail";
+import PodcastDetail from "../components/Podcast/PodcastDetail";
 
 type Props = {
   podcastView: PodcastViews;
 };
 
 const PodcastPage: React.FC<Props> = ({ podcastView }) => {
-  const { id } = useParams();
+  const { podcastId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,24 +27,29 @@ const PodcastPage: React.FC<Props> = ({ podcastView }) => {
     if (!podcastListLoaded) {
       dispatch(loadPodcastList());
     }
-    if (id) dispatch(loadEpisodeList(id));
-  }, [id, podcastListLoaded]);
+    if (podcastId) {
+      dispatch(loadEpisodeList(podcastId));
+    }
+  }, [podcastId, podcastListLoaded]);
 
-  const podcastDetail = useSelector(selectPodcastDetail(id ?? ""));
+  const podcastDetail = useSelector(selectPodcastDetail(podcastId ?? ""));
 
   const handleEpisodeClick = (episode: any) => {
-    navigate("/podcast/" + id + "/episode/" + episode.trackId);
+    navigate("/podcast/" + podcastId + "/episode/" + episode.trackId);
+  };
+
+  const handlePodcastDetailClick = () => {
+    navigate("/podcast/" + podcastId);
   };
 
   return (
     <div className="podcastViewContainer">
       <section className="podcastDetailContainer">
         {podcastDetail && (
-          <article className="podcastDetailCard">
-            <img src={podcastDetail?.["im:image"][2].label} />
-            <h2>{podcastDetail.id?.attributes?.["im:id"]}</h2>
-            <p>{podcastDetail.summary?.label}</p>
-          </article>
+          <PodcastDetail
+            podcast={podcastDetail}
+            onDetailClick={handlePodcastDetailClick}
+          ></PodcastDetail>
         )}
       </section>
       {podcastView === PodcastViews.EpisodeList && (

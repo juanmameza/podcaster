@@ -1,0 +1,26 @@
+.podcastDetailCard {
+    display: block;
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    -webkit-box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
+    -moz-box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
+    box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
+  }
+
+  .podcastDetailBlock {
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .podcastDetailBlock h2 {
+    margin: 0;
+  }
+  
+  .podcastDetailBlock img {
+      border-radius: 10%;
+  }
+  .podcastDetailBlock p {
+      margin: 0;
+  }

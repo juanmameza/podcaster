@@ -19,11 +19,11 @@ const router = createBrowserRouter([
     element: <App view={Views.Home}></App>,
   },
   {
-    path: "/podcast/:id",
+    path: "/podcast/:podcastId",
     element: <App view={Views.Podcast}></App>,
   },
   {
-    path: "/podcast/:podcastid/episode/:episodeid",
+    path: "/podcast/:podcastId/episode/:episodeId",
     element: <App view={Views.Episode}></App>,
   },
 ]);

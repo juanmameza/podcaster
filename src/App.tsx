@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import { PodcastViews, Views } from "./types";
 import PodcastPage from "./pages/Podcast";
-import EpisodePage from "./pages/EpisodeDetail";
 
 type Props = {
   view: Views;
