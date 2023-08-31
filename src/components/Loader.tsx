@@ -2,7 +2,7 @@ import React from 'react';
 import './Loader.css'
 
 const Loader = () => {
-    return <div className="lds-ripple"><div></div><div></div></div>
+    return <div className="custom-loader"></div>
 }
 
 export default Loader;

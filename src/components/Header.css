@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+    padding: 10px;
+}
+
+.header > h1 {
+    cursor: pointer;
+    color: #509DF4;
+    margin: 0;
+}
