@@ -6,6 +6,16 @@ const podcastsSelector = (state: { podcasts: any }) => state.podcasts;
 const selectPodcastList = createSelector([podcastsSelector], (podcasts) => {
   return podcasts.podcastList;
 });
+const selectFilteredPodcastList = (filter: string) =>
+  createSelector([podcastsSelector], (podcasts) => {
+    return podcasts.podcastList.filter(
+      (podcast: PodcastEntry) =>
+        podcast["im:artist"].label
+          ?.toLowerCase()
+          .includes(filter.toLowerCase()) ||
+        podcast.title.label?.toLowerCase().includes(filter.toLowerCase())
+    );
+  });
 const selectEpisodeList = createSelector([podcastsSelector], (podcasts) => {
   return podcasts.episodeList.results;
 });
@@ -16,7 +26,7 @@ const selectLoading = createSelector([podcastsSelector], (podcasts) => {
 
 const selectPodcastListLoaded = createSelector(
   [selectPodcastList],
-  (podcastList) => podcastList && podcastList.length > 0,
+  (podcastList) => podcastList && podcastList.length > 0
 );
 
 const selectPodcastDetail = (id: string) =>
@@ -26,8 +36,8 @@ const selectPodcastDetail = (id: string) =>
       podcastList &&
       podcastList.length > 0 &&
       podcastList.find(
-        (podcast: PodcastEntry) => podcast.id?.attributes?.["im:id"] === id,
-      ),
+        (podcast: PodcastEntry) => podcast.id?.attributes?.["im:id"] === id
+      )
   );
 
 const selectEpisodeDetail = (id: number) =>
@@ -36,11 +46,12 @@ const selectEpisodeDetail = (id: number) =>
     (episodeList) =>
       episodeList &&
       episodeList.length > 0 &&
-      episodeList.find((episode: Episode) => episode.trackId === id),
+      episodeList.find((episode: Episode) => episode.trackId === id)
   );
 
 export {
   selectPodcastList,
+  selectFilteredPodcastList,
   selectPodcastDetail,
   selectPodcastListLoaded,
   selectEpisodeList,

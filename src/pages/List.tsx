@@ -1,37 +1,47 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPodcastList } from "../redux/reducer";
 import { PodcastEntry } from "../types";
 import PodcastCard from "../components/Podcast/PodcastCard";
 import "./List.css";
 import { useNavigate } from "react-router-dom";
-import { selectPodcastList } from "../redux/selectors";
+import { selectFilteredPodcastList } from "../redux/selectors";
+import Filter from "../components/Filter";
 
 const ListPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [filterStr, setFilterStr] = useState("");
+
   useEffect(() => {
     dispatch(loadPodcastList());
   }, []);
 
-  const podcastList = useSelector(selectPodcastList);
+  const podcastList = useSelector(selectFilteredPodcastList(filterStr));
 
   const handleCardClick = (podcast: PodcastEntry) => {
     navigate(`/podcast/${podcast.id?.attributes?.["im:id"]}`);
   };
 
+  const handleFilterChange = (value: string) => {
+    setFilterStr(value);
+  };
+
   return (
-    <section className="list">
-      {podcastList &&
-        podcastList.map((podcast: PodcastEntry) => (
-          <PodcastCard
-            key={podcast?.id?.attributes?.["im:id"]}
-            podcast={podcast}
-            onCardClick={() => handleCardClick(podcast)}
-          />
-        ))}
-    </section>
+    <>
+      <Filter onInputChange={(value) => handleFilterChange(value)} />
+      <section className="list">
+        {podcastList &&
+          podcastList.map((podcast: PodcastEntry) => (
+            <PodcastCard
+              key={podcast?.id?.attributes?.["im:id"]}
+              podcast={podcast}
+              onCardClick={() => handleCardClick(podcast)}
+            />
+          ))}
+      </section>
+    </>
   );
 };
 
