@@ -39,7 +39,7 @@ export const {
   loadPodcastListSuccess,
   loadPodcastListError,
   loadEpisodeList,
-  loadEpisodeListSuccess
+  loadEpisodeListSuccess,
 } = podcasterSlice.actions;
 
 export default podcasterSlice.reducer;

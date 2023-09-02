@@ -17,7 +17,7 @@ type Props = {
 };
 
 const PodcastPage: React.FC<Props> = ({ podcastView }) => {
-  const { podcastId } = useParams();
+  const { podcastId, episodeId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -57,7 +57,9 @@ const PodcastPage: React.FC<Props> = ({ podcastView }) => {
           onEpisodeClick={(episode) => handleEpisodeClick(episode)}
         />
       )}
-      {podcastView === PodcastViews.EpisodeDetail && <EpisodeDetail />}
+      {podcastView === PodcastViews.EpisodeDetail && (
+        <EpisodeDetail episodeId={episodeId} />
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { PodcastEntry } from "../types";
+import { Episode, PodcastEntry } from "../types";
 
 const podcastsSelector = (state: { podcasts: any }) => state.podcasts;
 
@@ -20,10 +20,21 @@ const selectPodcastListLoaded = createSelector(
 );
 
 const selectPodcastDetail = (id: string) =>
-  createSelector([selectPodcastList], (podcastList) =>
-    podcastList.find(
-      (podcast: PodcastEntry) => podcast.id?.attributes?.["im:id"] === id
-    )
+  createSelector(
+    [selectPodcastList],
+    (podcastList) =>
+      podcastList &&
+      podcastList.length > 0 &&
+      podcastList.find(
+        (podcast: PodcastEntry) => podcast.id?.attributes?.["im:id"] === id
+      )
+  );
+
+const selectEpisodeDetail = (id: number) =>
+  createSelector([selectEpisodeList], (episodeList) =>
+    episodeList &&
+    episodeList.length > 0 &&
+    episodeList.find((episode: Episode) => episode.trackId === id)
   );
 
 export {
@@ -31,5 +42,6 @@ export {
   selectPodcastDetail,
   selectPodcastListLoaded,
   selectEpisodeList,
+  selectEpisodeDetail,
   selectLoading,
 };
