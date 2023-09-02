@@ -4,7 +4,7 @@ import { PodcastEntry } from "../types";
 const initialState = {
   podcastList: [],
   episodeList: [],
-  selectedPodcast: '', 
+  selectedPodcast: "",
   selectedEpisode: {},
   isLoading: false,
 };
@@ -16,20 +16,17 @@ const podcasterSlice = createSlice({
     loadPodcastList: (state) => {
       return { ...state, isLoading: true };
     },
-    loadPodcastListSuccess: (
-      state,
-      action
-    ) => {
+    loadPodcastListSuccess: (state, action) => {
       return { ...state, podcastList: action.payload, isLoading: false };
     },
     loadPodcastListError: (state) => {
       return { ...state, podcastList: [], isLoading: false };
     },
-    loadEpisodeList: (state, action: {type: string, payload: string})=>{
-      return {...state, isLoading: true, selectedPodcast: action.payload}
+    loadEpisodeList: (state, action: { type: string; payload: string }) => {
+      return { ...state, isLoading: true, selectedPodcast: action.payload };
     },
-    loadEpisodeListSuccess: (state, {payload})=>{
-      return {...state, episodeList: payload, isLoading: false}
+    loadEpisodeListSuccess: (state, { payload }) => {
+      return { ...state, episodeList: payload, isLoading: false };
     },
   },
 });

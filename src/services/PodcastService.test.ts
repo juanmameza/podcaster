@@ -20,7 +20,7 @@ describe("the podcast service", () => {
     jest.restoreAllMocks();
   });
 
-  test("should save the podcast list to localStorage if none saved", async() => {
+  test("should save the podcast list to localStorage if none saved", async () => {
     const podcastList = [
       {
         title: "someTitle",
@@ -36,18 +36,23 @@ describe("the podcast service", () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({ feed: { entry: podcastList } }),
-      })
+      }),
     ) as jest.Mock;
 
     const podcastService = new PodcastService();
 
     await podcastService.fetchPodcastList();
-    
-    expect(mockSetItem).toHaveBeenCalledWith('podcastListTimestamp', new Date("2023-08-30").getTime().toString());
-    expect(mockSetItem).toHaveBeenCalledWith('podcastList', JSON.stringify(podcastList));
-  
+
+    expect(mockSetItem).toHaveBeenCalledWith(
+      "podcastListTimestamp",
+      new Date("2023-08-30").getTime().toString(),
+    );
+    expect(mockSetItem).toHaveBeenCalledWith(
+      "podcastList",
+      JSON.stringify(podcastList),
+    );
   });
-  test("should save the podcast list to localStorage if 24h have passed from last saved", async() => {
+  test("should save the podcast list to localStorage if 24h have passed from last saved", async () => {
     const A_DAY_BEFORE_CURRENT = new Date("2023-08-20");
     const podcastList = [
       {
@@ -64,18 +69,23 @@ describe("the podcast service", () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({ feed: { entry: podcastList } }),
-      })
+      }),
     ) as jest.Mock;
 
     const podcastService = new PodcastService();
 
     await podcastService.fetchPodcastList();
-    
-    expect(mockSetItem).toHaveBeenCalledWith('podcastListTimestamp', new Date("2023-08-30").getTime().toString());
-    expect(mockSetItem).toHaveBeenCalledWith('podcastList', JSON.stringify(podcastList));
-  
+
+    expect(mockSetItem).toHaveBeenCalledWith(
+      "podcastListTimestamp",
+      new Date("2023-08-30").getTime().toString(),
+    );
+    expect(mockSetItem).toHaveBeenCalledWith(
+      "podcastList",
+      JSON.stringify(podcastList),
+    );
   });
-  test("should get the podcast list from localStorage if 24h have not passed from last saved", async() => {
+  test("should get the podcast list from localStorage if 24h have not passed from last saved", async () => {
     const SAME_DAY_AS_CURRENT = new Date("2023-08-30");
     const podcastList = [
       {
@@ -92,17 +102,16 @@ describe("the podcast service", () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({ feed: { entry: podcastList } }),
-      })
+      }),
     ) as jest.Mock;
 
     const podcastService = new PodcastService();
 
     await podcastService.fetchPodcastList();
-    
-    expect(mockSetItem).not.toHaveBeenCalled();
-    expect(mockGetItem).toHaveBeenCalledWith('podcastList');
-  });
 
+    expect(mockSetItem).not.toHaveBeenCalled();
+    expect(mockGetItem).toHaveBeenCalledWith("podcastList");
+  });
 
   it("should fetch the podcast list from localStorage", () => {});
   it("should save the podcast list to localStorage", () => {});

@@ -16,7 +16,7 @@ const selectLoading = createSelector([podcastsSelector], (podcasts) => {
 
 const selectPodcastListLoaded = createSelector(
   [selectPodcastList],
-  (podcastList) => podcastList && podcastList.length > 0
+  (podcastList) => podcastList && podcastList.length > 0,
 );
 
 const selectPodcastDetail = (id: string) =>
@@ -26,15 +26,17 @@ const selectPodcastDetail = (id: string) =>
       podcastList &&
       podcastList.length > 0 &&
       podcastList.find(
-        (podcast: PodcastEntry) => podcast.id?.attributes?.["im:id"] === id
-      )
+        (podcast: PodcastEntry) => podcast.id?.attributes?.["im:id"] === id,
+      ),
   );
 
 const selectEpisodeDetail = (id: number) =>
-  createSelector([selectEpisodeList], (episodeList) =>
-    episodeList &&
-    episodeList.length > 0 &&
-    episodeList.find((episode: Episode) => episode.trackId === id)
+  createSelector(
+    [selectEpisodeList],
+    (episodeList) =>
+      episodeList &&
+      episodeList.length > 0 &&
+      episodeList.find((episode: Episode) => episode.trackId === id),
   );
 
 export {

@@ -15,7 +15,7 @@ const PodcastDetail: React.FC<Props> = ({ podcast, onDetailClick }) => {
       </div>
       <div className="podcastDetailBlock">
         <h2>{podcast.title?.label}</h2>
-        <p> by {podcast['im:artist']?.label}</p>
+        <p> by {podcast["im:artist"]?.label}</p>
       </div>
       <div className="podcastDetailBlock">
         <p>{podcast.summary?.label}</p>

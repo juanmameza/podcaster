@@ -22,7 +22,7 @@ class PodcastService {
 
   private savePodcastListToLocalStorage = (
     podcastList: PodcastEntry[],
-    timestamp: number
+    timestamp: number,
   ) => {
     localStorage.setItem("podcastListTimestamp", timestamp.toString());
     localStorage.setItem("podcastList", JSON.stringify(podcastList));
@@ -44,7 +44,7 @@ class PodcastService {
   public fetchEpisodeList = async (id: string) => {
     const episodeListURL = CONSTANTS.EpisodeURL.replace("[id]", id);
     const URL = `${CONSTANTS.AllOriginsURL}${encodeURIComponent(
-      episodeListURL
+      episodeListURL,
     )}`;
 
     const episodeListResponse = await fetch(URL);
