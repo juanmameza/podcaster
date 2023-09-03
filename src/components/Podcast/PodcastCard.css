@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 30px 20px 20px 20px;
   margin: 20px;
   width: 150px;
   max-height: 100px;
@@ -21,7 +21,7 @@
 
 .podcastCardBox img {
   position: absolute;
-  top: -70px;
+  top: -60px;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -33,6 +33,7 @@
   font-weight: 800;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-height: 50px;
 }
 
 .podcastCardBox p {
