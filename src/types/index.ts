@@ -74,7 +74,7 @@ export type Episode = {
   description: string;
   trackId: number;
   trackName: string;
-  releaseDate: Date;
+  releaseDate: string;
   artistIds: number[];
   shortDescription: string;
   episodeUrl: string;

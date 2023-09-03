@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { selectEpisodeList, selectLoading } from "../redux/selectors";
 import { Episode } from "../types";
+import "./EpisodeList.css";
 
 type Props = {
   onEpisodeClick: (episode: any) => void;
@@ -19,23 +20,32 @@ const EpisodeList: React.FC<Props> = ({ onEpisodeClick }) => {
   return (
     <section className="episodeListContainer">
       {!isLoading && (
-        <table>
+        <table className="episodeListTable">
           <thead>
-            <tr>
-              <th>Track name</th>
-              <th>Duration</th>
+            <tr className="episodeListTableRow">
+              <th className="episodeListTableRowCell">Track name</th>
+              <th className="episodeListTableRowCellSmall">Date</th>
+              <th className="episodeListTableRowCellSmall">Duration</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="episodeListTableBody">
             {episodes &&
               episodes.map((episode: Episode) => (
                 <tr
+                  className="episodeListTableRow"
                   tabIndex={0}
                   onClick={() => onEpisodeClick(episode)}
                   key={episode.trackId}
                 >
-                  <td>{episode.trackName}</td>
-                  <td>{millisToMinutesAndSeconds(episode.trackTimeMillis)}</td>
+                  <td className="episodeListTableRowCell scrollableCell">
+                    {episode.trackName}
+                  </td>
+                  <td className="episodeListTableRowCellSmall">
+                    {new Date(episode.releaseDate).toLocaleDateString()}
+                  </td>
+                  <td className="episodeListTableRowCellSmall">
+                    {millisToMinutesAndSeconds(episode.trackTimeMillis)}
+                  </td>
                 </tr>
               ))}
           </tbody>

@@ -1,0 +1,57 @@
+.episodeListContainer {
+  position: relative;
+  padding: 20px;
+}
+
+.episodeListTable {
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
+}
+
+.episodeListTableHead {
+  display: flex;
+  flex-direction: row;
+}
+
+.episodeListTableBody {
+  height: calc(100vh - 200px);
+  position: relative;
+  overflow-y: scroll;
+}
+
+.episodeListTableRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  padding: 5px 0;
+}
+
+.episodeListTableRow:hover {
+  background-color: gray;
+  color: white;
+}
+
+.episodeListTableRowCell {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 20px;
+}
+
+.episodeListTableRowCellSmall {
+  width: 100px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 20px;
+}
+
+.episodeListTableRowCell {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 20px;
+}
