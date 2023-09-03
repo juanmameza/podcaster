@@ -36,7 +36,7 @@ describe("the podcast service", () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({ feed: { entry: podcastList } }),
-      }),
+      })
     ) as jest.Mock;
 
     const podcastService = new PodcastService();
@@ -45,13 +45,14 @@ describe("the podcast service", () => {
 
     expect(mockSetItem).toHaveBeenCalledWith(
       "podcastListTimestamp",
-      new Date("2023-08-30").getTime().toString(),
+      new Date("2023-08-30").getTime().toString()
     );
     expect(mockSetItem).toHaveBeenCalledWith(
       "podcastList",
-      JSON.stringify(podcastList),
+      JSON.stringify(podcastList)
     );
   });
+
   test("should save the podcast list to localStorage if 24h have passed from last saved", async () => {
     const A_DAY_BEFORE_CURRENT = new Date("2023-08-20");
     const podcastList = [
@@ -69,7 +70,7 @@ describe("the podcast service", () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({ feed: { entry: podcastList } }),
-      }),
+      })
     ) as jest.Mock;
 
     const podcastService = new PodcastService();
@@ -78,13 +79,14 @@ describe("the podcast service", () => {
 
     expect(mockSetItem).toHaveBeenCalledWith(
       "podcastListTimestamp",
-      new Date("2023-08-30").getTime().toString(),
+      new Date("2023-08-30").getTime().toString()
     );
     expect(mockSetItem).toHaveBeenCalledWith(
       "podcastList",
-      JSON.stringify(podcastList),
+      JSON.stringify(podcastList)
     );
   });
+
   test("should get the podcast list from localStorage if 24h have not passed from last saved", async () => {
     const SAME_DAY_AS_CURRENT = new Date("2023-08-30");
     const podcastList = [
@@ -102,7 +104,7 @@ describe("the podcast service", () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({ feed: { entry: podcastList } }),
-      }),
+      })
     ) as jest.Mock;
 
     const podcastService = new PodcastService();
@@ -113,7 +115,101 @@ describe("the podcast service", () => {
     expect(mockGetItem).toHaveBeenCalledWith("podcastList");
   });
 
-  it("should fetch the podcast list from localStorage", () => {});
+  it("should fetch the episode list from localStorage if 24h have not passed", async () => {
+    const SAME_DAY_AS_CURRENT = new Date("2023-08-30");
+    const podcastId = "123456783";
+    const podcastService = new PodcastService();
+
+    podcastService["fetchPodcastListFromLocalStorage"] = jest.fn();
+
+    const response = {
+      episodeList: {
+        resultCount: 51,
+        results: [
+          { wrapperType: "track", kind: "podcast", collectionId: 1572182022 },
+          { wrapperType: "track", kind: "podcast", collectionId: 1572182022 },
+        ],
+      },
+    };
+    mockGetItem.mockReturnValue(
+      JSON.stringify({
+        timestamp: SAME_DAY_AS_CURRENT.getTime().toString(),
+        episodeList: response.episodeList,
+      })
+    );
+
+    const episodeList = await podcastService.fetchEpisodeList(podcastId);
+
+    expect(episodeList).toEqual(response.episodeList);
+  });
+
+  it("should fetch the episode list from server if 24h have passed", async () => {
+    const A_DAY_BEFORE_CURRENT = new Date("2023-08-28");
+    const podcastId = "123456783";
+    const podcastService = new PodcastService();
+
+    podcastService["fetchEpisodeListFromServer"] = jest.fn();
+
+    const response = {
+      episodeList: {
+        resultCount: 51,
+        results: [
+          { wrapperType: "track", kind: "podcast", collectionId: 1572182022 },
+          { wrapperType: "track", kind: "podcast", collectionId: 1572182022 },
+        ],
+      },
+    };
+
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(response.episodeList),
+      })
+    ) as jest.Mock;
+
+    mockGetItem.mockReturnValue(
+      JSON.stringify({
+        timestamp: A_DAY_BEFORE_CURRENT.getTime().toString(),
+        episodeList: response.episodeList,
+      })
+    );
+
+    await podcastService.fetchEpisodeList(podcastId);
+
+    expect(podcastService["fetchEpisodeListFromServer"]).toBeCalledWith(
+      podcastId
+    );
+  });
+
+  it("should fetch the episode list from server if not saved in localStorage", async () => {
+    const podcastId = "123456783";
+    const podcastService = new PodcastService();
+
+    podcastService["fetchEpisodeListFromServer"] = jest.fn();
+
+    const response = {
+      episodeList: {
+        resultCount: 51,
+        results: [
+          { wrapperType: "track", kind: "podcast", collectionId: 1572182022 },
+          { wrapperType: "track", kind: "podcast", collectionId: 1572182022 },
+        ],
+      },
+    };
+
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(response.episodeList),
+      })
+    ) as jest.Mock;
+
+    mockGetItem.mockReturnValue(null);
+
+    await podcastService.fetchEpisodeList(podcastId);
+
+    expect(podcastService["fetchEpisodeListFromServer"]).toBeCalledWith(
+      podcastId
+    );
+  });
   it("should save the podcast list to localStorage", () => {});
   it("should save the podcast list to localStorage", () => {});
 });
