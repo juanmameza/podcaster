@@ -18,7 +18,9 @@ const ListPage = () => {
     dispatch(loadPodcastList());
   }, []);
 
-  const podcastList = useSelector(selectFilteredPodcastList(filterStr));
+  const podcastList: PodcastEntry[] = useSelector(
+    selectFilteredPodcastList(filterStr)
+  );
 
   const handleCardClick = (podcast: PodcastEntry) => {
     navigate(`/podcast/${podcast.id?.attributes?.["im:id"]}`);
@@ -30,7 +32,10 @@ const ListPage = () => {
 
   return (
     <>
-      <Filter onInputChange={(value) => handleFilterChange(value)} />
+      <Filter
+        filterCount={podcastList.length}
+        onInputChange={(value) => handleFilterChange(value)}
+      />
       <section className="list">
         {podcastList &&
           podcastList.map((podcast: PodcastEntry) => (

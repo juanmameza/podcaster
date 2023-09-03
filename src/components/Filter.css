@@ -1,0 +1,22 @@
+.filterContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 40px;
+}
+
+.filterInput {
+    border-radius: 3px;
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+.filterCount {
+    border-radius: 40%;
+    padding: 5px;
+    background-color: #509df4;
+    color: white;
+    margin: 0 10px;
+    font-weight: bold;
+}

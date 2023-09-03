@@ -17,7 +17,9 @@ const selectFilteredPodcastList = (filter: string) =>
     );
   });
 const selectEpisodeList = createSelector([podcastsSelector], (podcasts) => {
-  return podcasts.episodeList.results;
+  return podcasts.episodeList.results?.filter(
+    (episode: Episode) => episode.kind === "podcast-episode"
+  );
 });
 
 const selectLoading = createSelector([podcastsSelector], (podcasts) => {
