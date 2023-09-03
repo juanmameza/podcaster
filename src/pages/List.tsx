@@ -16,7 +16,7 @@ const ListPage = () => {
 
   useEffect(() => {
     dispatch(loadPodcastList());
-  }, []);
+  }, [dispatch]);
 
   const podcastList: PodcastEntry[] = useSelector(
     selectFilteredPodcastList(filterStr)

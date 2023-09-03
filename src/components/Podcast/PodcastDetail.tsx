@@ -14,7 +14,7 @@ const PodcastDetail: React.FC<Props> = ({ podcast, onDetailClick }) => {
         <img src={podcast?.["im:image"][2].label} />
       </div>
       <div className="podcastDetailBlock">
-        <h2>{podcast.title?.label}</h2>
+        <h2>{podcast['im:name']?.label}</h2>
         <p> by {podcast["im:artist"]?.label}</p>
       </div>
       <div className="podcastDetailBlock">

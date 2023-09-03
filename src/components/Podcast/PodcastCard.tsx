@@ -11,7 +11,7 @@ const PodcastCard: React.FC<Props> = ({ podcast, onCardClick }) => {
   return (
     <article className="podcastCard" onClick={onCardClick}>
       <div className="podcastCardBox">
-        <img src={podcast?.["im:image"][2].label} />
+        <img src={podcast?.["im:image"][2].label} alt="" />
         <h5>{podcast?.["im:name"]?.label}</h5>
         <p>{"Author: " + podcast?.["im:artist"]?.label}</p>
       </div>

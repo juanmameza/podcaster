@@ -1,7 +1,7 @@
 import React from "react";
-import { Episode } from "../types";
 import { selectEpisodeDetail, selectLoading } from "../redux/selectors";
 import { useSelector } from "react-redux";
+import "./EpisodeDetail.css";
 
 type Props = {
   episodeId?: string;
@@ -17,13 +17,13 @@ const EpisodeDetail: React.FC<Props> = ({ episodeId }) => {
   };
 
   return (
-    <div>
+    <div className="episodeDetailContainer">
       {!isLoading && (
-        <>
-          <h4>{episode?.trackName}</h4>
+        <div className="episodeDetailCard">
+          <h4 className="episodeDetailTitle">{episode?.trackName}</h4>
           <div dangerouslySetInnerHTML={parseHtml(episode?.description)} />
           <audio src={episode?.episodeUrl} controls autoPlay />
-        </>
+        </div>
       )}
     </div>
   );

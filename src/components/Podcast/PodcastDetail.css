@@ -23,4 +23,8 @@
 }
 .podcastDetailBlock p {
   margin: 0;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  line-break: strict;
 }

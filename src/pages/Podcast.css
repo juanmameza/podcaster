@@ -1,7 +1,7 @@
 .podcastViewContainer {
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
+  height: calc(100vh - 61px);
 }
 
 .podcastDetailContainer {

@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   padding: 30px 20px 20px 20px;
   margin: 20px;
   width: 150px;
@@ -29,7 +30,7 @@
   text-transform: uppercase;
   margin: 0;
   font-weight: 800;
-  overflow: hidden;
+  overflow-x: hidden;
   text-overflow: ellipsis;
   max-height: 50px;
 }

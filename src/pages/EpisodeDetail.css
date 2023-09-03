@@ -1,0 +1,21 @@
+.episodeDetailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.episodeDetailCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  row-gap: 10px;
+  box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
+  max-width: 90%;
+}
+
+.episodeDetailTitle {
+  margin: 0;
+}
