@@ -1,13 +1,44 @@
 .podcastCard {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  position:relative;
+  height: 120px;
+}
+
+.podcastCardBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
   margin: 20px;
   width: 150px;
+  max-height: 100px;
   -webkit-box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
   -moz-box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
   box-shadow: 4px 4px 13px -7px rgba(10, 9, 10, 0.71);
 }
 
-.podcastCard img {
+.podcastCardBox img {
+  position: absolute;
+  top: -70px;
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.podcastCardBox h5 {
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.podcastCardBox p {
+  margin: 0;
+  font-weight: 400;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
